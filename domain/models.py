@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Union
+from typing import List, Union, Dict
 
 
 class Location(object):
@@ -19,21 +19,10 @@ class Location(object):
         return f'({self.x}, {self.y})'
 
     def __str__(self):
-        return f'({self.x}, {self.y})'
+        return f'({self.x},{self.y})'
 
     def __eq__(self, other: 'Location'):
         return (self.x == other.x) and (self.y == other.y)
-
-
-class MapLocation(Location):
-    """
-    Represents a point which can contain vehicles and people
-    """
-
-    def __init__(self, x, y):
-        Location.__init__(self, x, y)
-        self.people: List[Person] = []
-        self.vehicles: List[Vehicle] = []
 
 
 class PersonStatus(str, Enum):
@@ -67,28 +56,18 @@ class Vehicle(object):
         self.name = name
         self.max_occupancy = max_occupancy
         self.passengers: List[Person] = []
+        self.itinerary = []
 
     def add_passenger(self, passenger: Person):
         if self.max_occupancy:
             assert len(self.passengers) + 1 <= self.max_occupancy
         self.passengers.append(passenger)
 
-    def waypoints(self):
-
-
 
 class LocationsMap(object):
     """
     A map that contains all the locations people and vehicles can exist
     """
-    def __init__(self, name: str):
-        self.name = name
-        self.nodes: Union[List[Location], None] = None
-
-    def init_grid_network(self, x_nodes: int, y_nodes: int):
-        self.nodes = [MapLocation(x, y) for x in range(x_nodes) for y in range(y_nodes)]
-
-    def get_vehicle_itinerary(self, waypoints: List[Location]):
-        pass
-
-
+    def __init__(self):
+        self.people: List[Dict[str, Location]] = []
+        self.vehicles: List[Dict[str, Location]] = []

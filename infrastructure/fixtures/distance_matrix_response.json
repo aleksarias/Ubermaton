@@ -1,0 +1,50 @@
+{
+  "destination_addresses": [
+    "7841 NW 170th St, Hialeah, FL 33015, USA",
+    "1182 NW 162nd Ave, Pembroke Pines, FL 33028, USA",
+    "16625 Cabernet Dr, Delray Beach, FL 33446, USA"
+  ],
+  "origin_addresses": [
+    "5504 Broken Sound Blvd NW, Boca Raton, FL 33487, USA"
+  ],
+  "rows": [
+    {
+      "elements": [
+        {
+          "distance": {
+            "text": "71.5 km",
+            "value": 71464
+          },
+          "duration": {
+            "text": "50 mins",
+            "value": 2980
+          },
+          "status": "OK"
+        },
+        {
+          "distance": {
+            "text": "66.3 km",
+            "value": 66259
+          },
+          "duration": {
+            "text": "45 mins",
+            "value": 2712
+          },
+          "status": "OK"
+        },
+        {
+          "distance": {
+            "text": "13.6 km",
+            "value": 13578
+          },
+          "duration": {
+            "text": "17 mins",
+            "value": 1045
+          },
+          "status": "OK"
+        }
+      ]
+    }
+  ],
+  "status": "OK"
+}
