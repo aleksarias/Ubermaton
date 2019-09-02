@@ -1,3 +1,4 @@
+from domain.gateways import DirectionsGateway
 from domain.repositories import VehicleRepository, LocationMapRepository, PeopleRepository
 
 
@@ -15,5 +16,5 @@ class VehicleService(object):
 
 class LocationMapService(object):
 
-    def __init__(self, repo: LocationMapRepository):
+    def __init__(self, repo: LocationMapRepository, directions: DirectionsGateway):
         pass
