@@ -117,7 +117,7 @@ class VehicleService(object):
                 arrived_at_destination = True
             vehicle.itinerary_step += 1
             self.update(vehicle)
-        return vehicle.location, arrived_at_destination
+        return vehicle.location, arrived_at_destination, vehicle.destinations_queue
 
 
 class LocationMapService(object):

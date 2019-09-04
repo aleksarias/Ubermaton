@@ -2,6 +2,8 @@ import json
 import inspect
 from datetime import datetime
 
+from domain.models import Person, Location, PersonStatus
+
 
 class ObjectEncoder(json.JSONEncoder):
     """
@@ -44,3 +46,15 @@ def _encode_tuple_keys(obj):
 def json_serialize(obj):
     obj = _encode_tuple_keys(obj)
     return json.dumps(obj, cls=ObjectEncoder)
+
+
+def person_serialize(dict_obj):
+    pickup = dict_obj['start']
+    dropoff = dict_obj['end']
+    p = Person(
+        name=dict_obj['name'],
+        pickup=Location(pickup[0], pickup[1]),
+        dropoff=Location(dropoff[0], dropoff[1]),
+        status=PersonStatus.REQUESTED_VEHICLE
+    )
+    return p

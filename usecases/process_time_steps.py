@@ -3,7 +3,6 @@ from typing import Union, List
 from domain.models import Person, PersonStatus, Location
 from domain.services import VehicleService, PeopleService, LocationMapService
 
-
 DEFAULT_VEHICLE = 'default'
 
 
@@ -22,7 +21,7 @@ def time_step_single_vehicle(
     :return:
     """
 
-    vehicle_location, arrived_at_destination = vehicle_service.ping(DEFAULT_VEHICLE)
+    vehicle_location, arrived_at_destination, vehicle_destinations = vehicle_service.ping(DEFAULT_VEHICLE)
     dropped_off = None
     picked_up = None
     if arrived_at_destination:
@@ -54,5 +53,6 @@ def time_step_single_vehicle(
             path_to_next_stop = map_service.get_itinerary(vehicle_location, vehicle_destinations)
             vehicle_service.update_itinerary(DEFAULT_VEHICLE, path_to_next_stop)
 
-    return vehicle_location, vehicle_service.get_passengers(DEFAULT_VEHICLE), dropped_off, picked_up
-
+    return (
+        vehicle_location, vehicle_service.get_passengers(DEFAULT_VEHICLE), dropped_off, picked_up, vehicle_destinations
+    )

@@ -20,8 +20,7 @@ class NetworkXGateway(DirectionsGateway):
         """
         assert graph.number_of_nodes() > 0, "Graph cannot empty"
         self._graph = graph
-        print(f'Initialized graph with the following nodes')
-        print(graph.nodes)
+        print('Graph initialized')
 
     def validate_location(self, location: Location):
         assert location.coordinates in self._graph.nodes

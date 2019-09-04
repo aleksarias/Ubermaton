@@ -12,7 +12,7 @@ vehicle_service = VehicleService(InMemVehicleRepository())
 map_service = LocationMapService(InMemLocationMapRepository(), NetworkXGateway(lattice.grid_2d_graph(10, 10)))
 
 
-def test_ten_time_steps():
+def gen_steps():
     time_steps = [
         [
             {"name": "Elon", "start": [2, 2], "end": [8, 7]},
@@ -20,59 +20,17 @@ def test_ten_time_steps():
         ],
         [],
         [
-            {"name": "Nancy", "start": [9, 9],  "end": [1, 3]}
+            {"name": "Nancy", "start": [9, 9], "end": [1, 3]}
         ],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
-        [],
     ]
     for step in time_steps:
+        yield step
+    while True:
+        yield []
+
+
+def test_ten_time_steps():
+    for i, step in enumerate(gen_steps()):
         request = [
             Person(
                 item['name'],
@@ -81,19 +39,21 @@ def test_ten_time_steps():
                 PersonStatus.REQUESTED_VEHICLE)
             for item in step
         ]
-        vehicle_location, passengers, dropped_off, picked_up = time_step_single_vehicle(
+        vehicle_location, passengers, dropped_off, picked_up, destinations = time_step_single_vehicle(
             request,
             people_service,
             vehicle_service,
             map_service
         )
 
-        message = f'Vehicle is at {vehicle_location} with passengers {", ".join(passengers)} | '
+        message = f'Vehicle is at {vehicle_location} with passengers {", ".join(passengers) if passengers else None} | '
         if dropped_off:
             message += f'Dropped off {", ".join(p.name for p in dropped_off)} '
         if picked_up:
             message += f'Picked up {", ".join(p.name for p in picked_up)} '
         print(message)
+        if len(destinations) <= 0:
+            break
 
 
 if __name__ == '__main__':

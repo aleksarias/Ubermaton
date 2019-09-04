@@ -6,10 +6,8 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-pytest = "*"
-googlemaps = "*"
+cmd2 = "*"
 networkx = "*"
-pytest-parametrization = "*"
 
 [requires]
 python_version = "3.7"
