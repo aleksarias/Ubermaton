@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 pytest = "*"
 googlemaps = "*"
+networkx = "*"
+pytest-parametrization = "*"
 
 [requires]
 python_version = "3.7"

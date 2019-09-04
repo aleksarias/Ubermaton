@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domain.models import Vehicle, Person, LocationsMap
+from domain.models import Vehicle, Person, LocationsMap, Location, PersonStatus
 
 
 class PeopleRepository(ABC):
@@ -26,6 +26,14 @@ class PeopleRepository(ABC):
 
     @abstractmethod
     def get_all(self) -> List[Person]:
+        pass
+
+    @abstractmethod
+    def get_by_dropoff(self, location: Location, status: PersonStatus) -> List[Person]:
+        pass
+
+    @abstractmethod
+    def get_by_pickup(self, location: Location, status: PersonStatus) -> List[Person]:
         pass
 
 
@@ -79,4 +87,3 @@ class LocationMapRepository(ABC):
     @abstractmethod
     def get_all(self) -> List[LocationsMap]:
         pass
-git

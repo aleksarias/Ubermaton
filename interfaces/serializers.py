@@ -1,5 +1,6 @@
 import json
 import inspect
+from datetime import datetime
 
 
 class ObjectEncoder(json.JSONEncoder):
@@ -9,6 +10,8 @@ class ObjectEncoder(json.JSONEncoder):
     def default(self, obj):
         if hasattr(obj, "to_json"):
             return self.default(obj.to_json())
+        elif isinstance(obj, datetime):
+            return obj.isoformat() + 'Z'
         elif hasattr(obj, "__dict__"):
             d = dict(
                 (key, value)
@@ -24,8 +27,20 @@ class ObjectEncoder(json.JSONEncoder):
                 and not inspect.isroutine(value)
             )
             return self.default(d)
-        return obj
+
+
+def _encode_tuple_keys(obj):
+    if isinstance(obj, list):
+        return [_encode_tuple_keys(item) for item in obj]
+    elif isinstance(obj, dict):
+        obj = dict(
+            (str(key), value) if not isinstance(key, (str, int, float, bool))
+            else (key, value)
+            for key, value in obj.items()
+        )
+    return obj
 
 
 def json_serialize(obj):
-    return json.dumps(obj, cls=ObjectEncoder, indent=2, sort_keys=True)
+    obj = _encode_tuple_keys(obj)
+    return json.dumps(obj, cls=ObjectEncoder)
