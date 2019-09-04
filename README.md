@@ -14,12 +14,12 @@ other types of persistence like mongo or a relational/sql variant.
 
 ## Installation
 
- - git clone https://github.com/aleksarias/Ubermaton/
- - pipenv install 
- - pipenv shell 
+ - ```git clone https://github.com/aleksarias/Ubermaton/```
+ - ```pipenv install ```
+ - ```pipenv shell``` 
  
  ## Running the command line interface
- - python cli.py
+ - ```python cli.py```
  
  ## Project Structure
  - domain: all business specific data models
@@ -30,8 +30,15 @@ other types of persistence like mongo or a relational/sql variant.
  
  - Person: Stores data on users of the autonomous vehicle
  - Vehicle: Stores the state of the car and its planned itinerary
- - LocationMap: Used to calculate distances and shortests paths... essentially the map that's used by the vehicle for 
+ - LocationMap: Used to calculate distances and shortest paths... essentially the map that's used by the vehicle for 
  navigating
+ 
+ ## Tests
+ 
+ Run ```pytest``` to run all tests
+
+ For all tests to pass you need a Google Cloud API key set in the environment. See config.py
+ 
  
  ## TODO
  
